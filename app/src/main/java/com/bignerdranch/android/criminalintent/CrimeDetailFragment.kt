@@ -27,7 +27,9 @@ import com.bignerdranch.android.criminalintent.databinding.FragmentCrimeDetailBi
 import getScaledBitmap
 import kotlinx.coroutines.launch
 import java.io.File
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 import java.util.UUID
 
 private const val DATE_FORMAT = "EEE, MMM, dd"
@@ -81,7 +83,8 @@ class CrimeDetailFragment : Fragment() {
             if (crimeTitle.text.toString() != crime.title) {
                 crimeTitle.setText(crime.title)
             }
-            crimeDate.text = crime.date.toString()
+            val formattedDate = SimpleDateFormat("EE, MMM dd, yyyy", Locale.US)
+            binding.crimeDate.text = formattedDate.format(crime.date).toString()
             crimeDate.setOnClickListener {
                 findNavController().navigate(
                     CrimeDetailFragmentDirections.selectDate(crime.date)

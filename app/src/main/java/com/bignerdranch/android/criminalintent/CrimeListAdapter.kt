@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bignerdranch.android.criminalintent.databinding.ListItemCrimeBinding
 import com.bignerdranch.android.criminalintent.databinding.ListItemSeriousCrimeBinding
+import java.text.SimpleDateFormat
+import java.util.Locale
 import java.util.UUID
 
 class CrimeHolder(
@@ -15,7 +17,8 @@ class CrimeHolder(
 ) : RecyclerView.ViewHolder(binding.root){
     fun bind(crime: Crime, onCrimeClicked: (crimeId: UUID) -> Unit) {
         binding.crimeTitle.text = crime.title
-        binding.crimeDate.text = crime.date.toString()
+        val formattedDate = SimpleDateFormat("EE, MMM dd, yyyy", Locale.US)
+        binding.crimeDate.text = formattedDate.format(crime.date).toString()
 
         binding.root.setOnClickListener {
             onCrimeClicked(crime.id)
@@ -34,7 +37,8 @@ class SeriousCrimeHolder(
 ) : RecyclerView.ViewHolder(binding.root){
     fun bind(crime: Crime, onCrimeClicked: (crimeId: UUID) -> Unit) {
         binding.crimeTitle.text = crime.title
-        binding.crimeDate.text = crime.date.toString()
+        val formattedDate = SimpleDateFormat("EE, MMM dd, yyyy", Locale.US)
+        binding.crimeDate.text = formattedDate.format(crime.date).toString()
 
         binding.root.setOnClickListener {
             onCrimeClicked(crime.id)
