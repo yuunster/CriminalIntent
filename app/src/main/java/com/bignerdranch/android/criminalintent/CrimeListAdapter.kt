@@ -18,7 +18,9 @@ class CrimeHolder(
     fun bind(crime: Crime, onCrimeClicked: (crimeId: UUID) -> Unit) {
         binding.crimeTitle.text = crime.title
         val formattedDate = SimpleDateFormat("EE, MMM dd, yyyy", Locale.US)
+        val formattedTime = SimpleDateFormat("hh:mm a", Locale.US)
         binding.crimeDate.text = formattedDate.format(crime.date).toString()
+        binding.crimeTime.text = formattedTime.format(crime.date).toString()
 
         binding.root.setOnClickListener {
             onCrimeClicked(crime.id)
@@ -38,7 +40,9 @@ class SeriousCrimeHolder(
     fun bind(crime: Crime, onCrimeClicked: (crimeId: UUID) -> Unit) {
         binding.crimeTitle.text = crime.title
         val formattedDate = SimpleDateFormat("EE, MMM dd, yyyy", Locale.US)
+        val formattedTime = SimpleDateFormat("hh:mm a", Locale.US)
         binding.crimeDate.text = formattedDate.format(crime.date).toString()
+        binding.crimeTime.text = formattedTime.format(crime.date).toString()
 
         binding.root.setOnClickListener {
             onCrimeClicked(crime.id)

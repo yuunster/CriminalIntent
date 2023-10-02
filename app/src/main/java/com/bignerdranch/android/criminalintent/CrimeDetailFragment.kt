@@ -30,6 +30,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.SimpleTimeZone
 import java.util.UUID
 
 private const val DATE_FORMAT = "EEE, MMM, dd"
@@ -84,10 +85,17 @@ class CrimeDetailFragment : Fragment() {
                 crimeTitle.setText(crime.title)
             }
             val formattedDate = SimpleDateFormat("EE, MMM dd, yyyy", Locale.US)
+            val formattedTime = SimpleDateFormat("hh:mm a", Locale.US)
             binding.crimeDate.text = formattedDate.format(crime.date).toString()
+            binding.crimeTime.text = formattedTime.format(crime.date).toString()
             crimeDate.setOnClickListener {
                 findNavController().navigate(
                     CrimeDetailFragmentDirections.selectDate(crime.date)
+                )
+            }
+            crimeTime.setOnClickListener {
+                findNavController().navigate(
+                    CrimeDetailFragmentDirections.selectTime(crime.date)
                 )
             }
             crimeSolved.isChecked = crime.isSolved
@@ -241,9 +249,17 @@ class CrimeDetailFragment : Fragment() {
 
         setFragmentResultListener(
             DatePickerFragment.REQUEST_KEY_DATE
-        ) { requestKey, bundle ->
+        ) { _, bundle ->
             val newDate =
                 bundle.getSerializable(DatePickerFragment.BUNDLE_KEY_DATE) as Date
+            crimeDetailViewModel.updateCrime { it.copy(date = newDate) }
+        }
+
+        setFragmentResultListener(
+            TimePickerFragment.REQUEST_KEY_TIME
+        ) { _, bundle ->
+            val newDate =
+                bundle.getSerializable(TimePickerFragment.BUNDLE_KEY_TIME) as Date
             crimeDetailViewModel.updateCrime { it.copy(date = newDate) }
         }
     }
